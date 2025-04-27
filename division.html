@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Division Dashboard - EV Charging CMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/division.css">
+</head>
+<body>
+    <div class="division-dashboard-page">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="nav-logo">
+                        <i class="fas fa-bolt logo-icon-sm"></i>
+                        <h1 class="nav-title">EV Charging CMS</h1>
+                    </div>
+                    <div class="nav-actions">
+                        <div class="notification-bell">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">0</span>
+                        </div>
+                        <div class="user-profile">
+                            <img src="https://via.placeholder.com/40" alt="Division Avatar" class="avatar">
+                            <div>
+                                <p class="user-name" id="divisionUserName">Division Name</p>
+                                <button id="logoutBtn" class="logout-btn">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <p class="sidebar-title-sm">Division Panel</p>
+                    <p class="sidebar-title">Dashboard</p>
+                </div>
+                <nav class="sidebar-nav">
+                    <div class="sidebar-nav-group">
+                        <a href="#" class="sidebar-item active" data-section="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        
+                        <p class="sidebar-section-title">Complaints</p>
+                        
+                        <a href="#" class="sidebar-item" data-section="complaintsManagement">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>Manage Complaints</span>
+                        </a>
+                        
+                        <a href="#" class="sidebar-item" data-section="vendorAssignment">
+                            <i class="fas fa-users-cog"></i>
+                            <span>Vendor Assignment</span>
+                        </a>
+                        
+                        <p class="sidebar-section-title">Chargers</p>
+                        
+                        <a href="#" class="sidebar-item" data-section="chargersManagement">
+                            <i class="fas fa-charging-station"></i>
+                            <span>Manage Chargers</span>
+                        </a>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Dashboard Overview Section -->
+                <div id="dashboardSection" class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Division Dashboard</h2>
+                        <p class="section-subtitle">Welcome back, <span id="divisionWelcomeName">Division</span>. Here's your overview.</p>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <!-- Total Chargers -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">Total Chargers</p>
+                                    <p class="stat-value" id="divTotalChargers">0</p>
+                                </div>
+                                <div class="stat-icon blue">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active Chargers -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">Active Chargers</p>
+                                    <p class="stat-value" id="divActiveChargers">0</p>
+                                </div>
+                                <div class="stat-icon green">
+                                    <i class="fas fa-power-off"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Open Complaints -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">Open Complaints</p>
+                                    <p class="stat-value" id="divOpenComplaints">0</p>
+                                </div>
+                                <div class="stat-icon yellow">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Assigned to Vendors -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">Assigned to Vendors</p>
+                                    <p class="stat-value" id="divAssignedComplaints">0</p>
+                                </div>
+                                <div class="stat-icon purple">
+                                    <i class="fas fa-users-cog"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Complaints Table -->
+                    <div class="data-table-container">
+                        <div class="data-table-header">
+                            <h3 class="data-table-title">Recent Complaints</h3>
+                        </div>
+                        <div class="data-table-responsive">
+                            <table class="data-table" id="recentDivisionComplaintsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Tracking ID</th>
+                                        <th>Charger ID</th>
+                                        <th>Location</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Recent complaints will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="data-table-footer">
+                            <a href="#" class="view-all-link" id="viewAllDivisionComplaintsLink">View all complaints →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complaints Management Section (initially hidden) -->
+                <div id="complaintsManagementSection" class="dashboard-section hidden">
+                    <div class="section-header">
+                        <h2 class="section-title">Manage Division Complaints</h2>
+                        <p class="section-subtitle">View and resolve complaints for your division's chargers.</p>
+                    </div>
+
+                    <!-- Complaints Filters -->
+                    <div class="filter-container">
+                        <div class="filter-group">
+                            <label for="statusFilter">Status:</label>
+                            <select id="statusFilter">
+                                <option value="all">All</option>
+                                <option value="open">Open</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="typeFilter">Type:</label>
+                            <select id="typeFilter">
+                                <option value="all">All</option>
+                                <option value="charger">Charger Issues</option>
+                                <option value="billing">Billing Issues</option>
+                            </select>
+                        </div>
+                        <button id="applyFilters" class="btn btn-sm btn-secondary">Apply Filters</button>
+                        <button id="resetFilters" class="btn btn-sm btn-outline">Reset</button>
+                    </div>
+
+                    <!-- Complaints Table -->
+                    <div class="data-table-container">
+                        <div class="data-table-responsive">
+                            <table class="data-table" id="divisionComplaintsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Tracking ID</th>
+                                        <th>Charger ID</th>
+                                        <th>Location</th>
+                                        <th>Type</th>
+                                        <th>Customer</th>
+                                        <th>Status</th>
+                                        <th>Assigned To</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Complaint data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination">
+                            <button class="pagination-btn" id="prevPage" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <div class="pagination-info">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></div>
+                            <button class="pagination-btn" id="nextPage">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vendor Assignment Section (initially hidden) -->
+                <div id="vendorAssignmentSection" class="dashboard-section hidden">
+                    <div class="section-header">
+                        <h2 class="section-title">Vendor Assignment</h2>
+                        <p class="section-subtitle">Assign complaints to approved vendors for resolution.</p>
+                    </div>
+                    
+                    <div class="data-table-container">
+                        <div class="data-table-header">
+                            <h3 class="data-table-title">Available Vendors</h3>
+                        </div>
+                        <div class="data-table-responsive">
+                            <table class="data-table" id="availableVendorsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Vendor Name</th>
+                                        <th>Contact Person</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Current Assignments</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Vendor data will be populated by JavaScript -->
+                                    <tr>
+                                        <td colspan="6" class="text-center">No vendors available for this division yet.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="data-table-container">
+                        <div class="data-table-header">
+                            <h3 class="data-table-title">Unassigned Complaints</h3>
+                        </div>
+                        <div class="data-table-responsive">
+                            <table class="data-table" id="unassignedComplaintsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Tracking ID</th>
+                                        <th>Charger ID</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Unassigned complaints will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chargers Management Section (initially hidden) -->
+                <div id="chargersManagementSection" class="dashboard-section hidden">
+                    <div class="section-header">
+                        <h2 class="section-title">Division Charger Management</h2>
+                        <p class="section-subtitle">View and monitor chargers assigned to your division.</p>
+                    </div>
+                    
+                    <!-- Chargers Filters -->
+                    <div class="filter-container">
+                        <div class="filter-group">
+                            <label for="chargerStatusFilter">Status:</label>
+                            <select id="chargerStatusFilter">
+                                <option value="all">All</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="maintenance">Under Maintenance</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="chargerSearch">Search:</label>
+                            <input type="text" id="chargerSearch" placeholder="Charger ID or Location">
+                        </div>
+                        <button id="applyChargerFilters" class="btn btn-sm btn-secondary">Apply Filters</button>
+                        <button id="resetChargerFilters" class="btn btn-sm btn-outline">Reset</button>
+                    </div>
+                    
+                    <!-- Chargers Table -->
+                    <div class="data-table-container">
+                        <div class="data-table-responsive">
+                            <table class="data-table" id="divisionChargersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Charger ID</th>
+                                        <th>Location</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Open Complaints</th>
+                                        <th>Last Maintained</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Charger data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination">
+                            <button class="pagination-btn" id="prevChargerPage" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <div class="pagination-info">Page <span id="currentChargerPage">1</span> of <span id="totalChargerPages">1</span></div>
+                            <button class="pagination-btn" id="nextChargerPage">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/division.js"></script>
+</body>
+</html>

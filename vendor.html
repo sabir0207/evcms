@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard - EV Charging CMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/vendor.css">
+</head>
+<body>
+    <div class="vendor-dashboard-page">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="nav-logo">
+                        <i class="fas fa-bolt logo-icon-sm"></i>
+                        <h1 class="nav-title">EV Charging CMS</h1>
+                    </div>
+                    <div class="nav-actions">
+                        <div class="notification-bell">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">0</span>
+                        </div>
+                        <div class="user-profile">
+                            <img src="https://via.placeholder.com/40" alt="Vendor Avatar" class="avatar">
+                            <div>
+                                <p class="user-name" id="vendorUserName">Vendor Name</p>
+                                <button id="logoutBtn" class="logout-btn">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <p class="sidebar-title-sm">Vendor Panel</p>
+                    <p class="sidebar-title">Dashboard</p>
+                </div>
+                <nav class="sidebar-nav">
+                    <div class="sidebar-nav-group">
+                        <a href="#" class="sidebar-item active" data-section="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        
+                        <p class="sidebar-section-title">Complaints</p>
+                        
+                        <a href="#" class="sidebar-item" data-section="assignedComplaints">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Assigned Complaints</span>
+                        </a>
+                        
+                        <a href="#" class="sidebar-item" data-section="resolvedComplaints">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Resolved Complaints</span>
+                        </a>
+                        
+                        <p class="sidebar-section-title">Account</p>
+                        
+                        <a href="#" class="sidebar-item" data-section="profile">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Profile Settings</span>
+                        </a>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Dashboard Overview Section -->
+                <div id="dashboardSection" class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Vendor Dashboard</h2>
+                        <p class="section-subtitle">Welcome back, <span id="vendorWelcomeName">Vendor</span>. Here's your overview.</p>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <!-- Assigned Complaints -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">Assigned Complaints</p>
+                                    <p class="stat-value" id="assignedComplaintsCount">0</p>
+                                </div>
+                                <div class="stat-icon blue">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- In Progress -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">In Progress</p>
+                                    <p class="stat-value" id="inProgressCount">0</p>
+                                </div>
+                                <div class="stat-icon yellow">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resolved This Month -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">Resolved This Month</p>
+                                    <p class="stat-value" id="resolvedMonthCount">0</p>
+                                </div>
+                                <div class="stat-icon green">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resolution Time -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">Avg. Resolution Time</p>
+                                    <p class="stat-value" id="avgResolutionTime">0h</p>
+                                </div>
+                                <div class="stat-icon purple">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Assigned Complaints Table -->
+                    <div class="data-table-container">
+                        <div class="data-table-header">
+                            <h3 class="data-table-title">Recently Assigned Complaints</h3>
+                        </div>
+                        <div class="data-table-responsive">
+                            <table class="data-table" id="recentAssignedTable">
+                                <thead>
+                                    <tr>
+                                        <th>Tracking ID</th>
+                                        <th>Charger ID</th>
+                                        <th>Division</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Assigned Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Recent complaints will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="data-table-footer">
+                            <a href="#" class="view-all-link" id="viewAllAssignedLink">View all assigned complaints →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assigned Complaints Section (initially hidden) -->
+                <div id="assignedComplaintsSection" class="dashboard-section hidden">
+                    <div class="section-header">
+                        <h2 class="section-title">Assigned Complaints</h2>
+                        <p class="section-subtitle">Manage and update the status of complaints assigned to you.</p>
+                    </div>
+
+                    <!-- Complaints Filters -->
+                    <div class="filter-container">
+                        <div class="filter-group">
+                            <label for="statusFilter">Status:</label>
+                            <select id="statusFilter">
+                                <option value="all">All</option>
+                                <option value="open">Open</option>
+                                <option value="in-progress">In Progress</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="typeFilter">Type:</label>
+                            <select id="typeFilter">
+                                <option value="all">All</option>
+                                <option value="charger">Charger Issues</option>
+                                <option value="billing">Billing Issues</option>
+                            </select>
+                        </div>
+                        <button id="applyFilters" class="btn btn-sm btn-secondary">Apply Filters</button>
+                        <button id="resetFilters" class="btn btn-sm btn-outline">Reset</button>
+                    </div>
+
+                    <!-- Complaints Table -->
+                    <div class="data-table-container">
+                        <div class="data-table-responsive">
+                            <table class="data-table" id="assignedComplaintsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Tracking ID</th>
+                                        <th>Charger ID</th>
+                                        <th>Division</th>
+                                        <th>Type</th>
+                                        <th>Customer</th>
+                                        <th>Status</th>
+                                        <th>Assigned Date</th>
+                                        <th>Expected Resolution</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Complaint data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination">
+                            <button class="pagination-btn" id="prevPage" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <div class="pagination-info">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></div>
+                            <button class="pagination-btn" id="nextPage">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Resolved Complaints Section (initially hidden) -->
+                <div id="resolvedComplaintsSection" class="dashboard-section hidden">
+                    <div class="section-header">
+                        <h2 class="section-title">Resolved Complaints</h2>
+                        <p class="section-subtitle">View history of complaints you have successfully resolved.</p>
+                    </div>
+
+                    <!-- Complaints Filters -->
+                    <div class="filter-container">
+                        <div class="filter-group">
+                            <label for="resolvedTypeFilter">Type:</label>
+                            <select id="resolvedTypeFilter">
+                                <option value="all">All</option>
+                                <option value="charger">Charger Issues</option>
+                                <option value="billing">Billing Issues</option>
+                            </select>
+                        </div>
+                        <div class="filter-group date-filter">
+                            <label for="dateFrom">From:</label>
+                            <input type="date" id="dateFrom">
+                        </div>
+                        <div class="filter-group date-filter">
+                            <label for="dateTo">To:</label>
+                            <input type="date" id="dateTo">
+                        </div>
+                        <button id="applyResolvedFilters" class="btn btn-sm btn-secondary">Apply Filters</button>
+                        <button id="resetResolvedFilters" class="btn btn-sm btn-outline">Reset</button>
+                    </div>
+
+                    <!-- Resolved Complaints Table -->
+                    <div class="data-table-container">
+                        <div class="data-table-responsive">
+                            <table class="data-table" id="resolvedComplaintsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Tracking ID</th>
+                                        <th>Charger ID</th>
+                                        <th>Division</th>
+                                        <th>Type</th>
+                                        <th>Customer</th>
+                                        <th>Assigned Date</th>
+                                        <th>Resolved Date</th>
+                                        <th>Resolution Time</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Resolved complaint data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination">
+                            <button class="pagination-btn" id="prevResolvedPage" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <div class="pagination-info">Page <span id="currentResolvedPage">1</span> of <span id="totalResolvedPages">1</span></div>
+                            <button class="pagination-btn" id="nextResolvedPage">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Settings Section (initially hidden) -->
+                <div id="profileSection" class="dashboard-section hidden">
+                    <div class="section-header">
+                        <h2 class="section-title">Profile Settings</h2>
+                        <p class="section-subtitle">Update your vendor profile information and preferences.</p>
+                    </div>
+                    
+                    <div class="profile-container">
+                        <div class="profile-card">
+                            <h3 class="profile-card-title">Vendor Information</h3>
+                            <form id="vendorProfileForm">
+                                <div class="form-group">
+                                    <label for="vendorProfileName">Vendor Name</label>
+                                    <input type="text" id="vendorProfileName" name="vendorProfileName" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendorContactPerson">Contact Person</label>
+                                    <input type="text" id="vendorContactPerson" name="vendorContactPerson">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group half">
+                                        <label for="vendorEmail">Email</label>
+                                        <input type="email" id="vendorEmail" name="vendorEmail">
+                                    </div>
+                                    <div class="form-group half">
+                                        <label for="vendorPhone">Phone</label>
+                                        <input type="tel" id="vendorPhone" name="vendorPhone">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendorAddress">Address</label>
+                                    <textarea id="vendorAddress" name="vendorAddress" rows="2"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </form>
+                        </div>
+                        
+                        <div class="profile-card">
+                            <h3 class="profile-card-title">Change Password</h3>
+                            <form id="vendorPasswordForm">
+                                <div class="form-group">
+                                    <label for="currentPassword">Current Password</label>
+                                    <input type="password" id="currentPassword" name="currentPassword" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">New Password</label>
+                                    <input type="password" id="newPassword" name="newPassword" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm New Password</label>
+                                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Change Password</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/vendor.js"></script>
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - EV Charging CMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-dashboard-page">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="container">
+                <div class="nav-content">
+                    <div class="nav-logo">
+                        <i class="fas fa-bolt logo-icon-sm"></i>
+                        <h1 class="nav-title">EV Charging CMS</h1>
+                    </div>
+                    <div class="nav-actions">
+                        <div class="notification-bell">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">0</span>
+                        </div>
+                        <div class="user-profile">
+                            <img src="https://via.placeholder.com/40" alt="Admin Avatar" class="avatar">
+                            <div>
+                                <p class="user-name">Admin User</p>
+                                <button id="logoutBtn" class="logout-btn">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <p class="sidebar-title-sm">Admin Panel</p>
+                    <p class="sidebar-title">Dashboard</p>
+                </div>
+                <nav class="sidebar-nav">
+                    <div class="sidebar-nav-group">
+                        <a href="#" class="sidebar-item active" data-section="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        
+                        <p class="sidebar-section-title">User Management</p>
+                        
+                        <a href="#" class="sidebar-item" data-section="vendorManagement">
+                            <i class="fas fa-users-cog"></i>
+                            <span>Vendor Management</span>
+                        </a>
+                        
+                        <a href="#" class="sidebar-item" data-section="divisionManagement">
+                            <i class="fas fa-building"></i>
+                            <span>Division Management</span>
+                        </a>
+                        
+                        <a href="#" class="sidebar-item" data-section="chargerManagement">
+                            <i class="fas fa-charging-station"></i>
+                            <span>Charger Management</span>
+                        </a>
+                        
+                        <p class="sidebar-section-title">Complaints</p>
+                        
+                        <a href="#" class="sidebar-item" data-section="complaintsManagement">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <span>All Complaints</span>
+                        </a>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Dashboard Overview Section -->
+                <div id="dashboardSection" class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Dashboard Overview</h2>
+                        <p class="section-subtitle">Welcome back, Admin. Here's what's happening with your EV charging network.</p>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <!-- Total Chargers -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">Total Chargers</p>
+                                    <p class="stat-value" id="totalChargersCount">0</p>
+                                </div>
+                                <div class="stat-icon blue">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Total Divisions -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">Total Divisions</p>
+                                    <p class="stat-value" id="totalDivisionsCount">0</p>
+                                </div>
+                                <div class="stat-icon green">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Open Complaints -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">Open Complaints</p>
+                                    <p class="stat-value" id="openComplaintsCount">0</p>
+                                </div>
+                                <div class="stat-icon yellow">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resolved Complaints -->
+                        <div class="stat-card">
+                            <div class="stat-card-content">
+                                <div>
+                                    <p class="stat-label">Resolved Complaints</p>
+                                    <p class="stat-value" id="resolvedComplaintsCount">0</p>
+                                </div>
+                                <div class="stat-icon purple">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Complaints Table -->
+                    <div class="data-table-container">
+                        <div class="data-table-header">
+                            <h3 class="data-table-title">Recent Complaints</h3>
+                        </div>
+                        <div class="data-table-responsive">
+                            <table class="data-table" id="recentComplaintsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Tracking ID</th>
+                                        <th>Charger ID</th>
+                                        <th>Division</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Recent complaints will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="data-table-footer">
+                            <a href="#" class="view-all-link" id="viewAllComplaintsLink">View all complaints →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Complaints Management Section (initially hidden) -->
+                <div id="complaintsManagementSection" class="dashboard-section hidden">
+                    <div class="section-header">
+                        <h2 class="section-title">All Complaints</h2>
+                        <p class="section-subtitle">View and manage all complaints across divisions.</p>
+                    </div>
+
+                    <!-- Complaints Filters -->
+                    <div class="filter-container">
+                        <div class="filter-group">
+                            <label for="statusFilter">Status:</label>
+                            <select id="statusFilter">
+                                <option value="all">All</option>
+                                <option value="open">Open</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="divisionFilter">Division:</label>
+                            <select id="divisionFilter">
+                                <option value="all">All</option>
+                                <!-- Division options will be loaded dynamically -->
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="typeFilter">Type:</label>
+                            <select id="typeFilter">
+                                <option value="all">All</option>
+                                <option value="charger">Charger Issues</option>
+                                <option value="billing">Billing Issues</option>
+                            </select>
+                        </div>
+                        <button id="applyFilters" class="btn btn-sm btn-secondary">Apply Filters</button>
+                        <button id="resetFilters" class="btn btn-sm btn-outline">Reset</button>
+                    </div>
+
+                    <!-- Complaints Table -->
+                    <div class="data-table-container">
+                        <div class="data-table-responsive">
+                            <table class="data-table" id="complaintsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Tracking ID</th>
+                                        <th>Customer Name</th>
+                                        <th>Charger ID</th>
+                                        <th>Division</th>
+                                        <th>Complaint Type</th>
+                                        <th>Status</th>
+                                        <th>Created Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Complaint data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="pagination">
+                            <button class="pagination-btn" id="prevPage" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <div class="pagination-info">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></div>
+                            <button class="pagination-btn" id="nextPage">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Other sections initially hidden - will be developed in future steps -->
+                <!-- Vendor Management Section -->
+<div id="vendorManagementSection" class="dashboard-section hidden">
+    <div class="section-header-flex">
+        <div>
+            <h2 class="section-title">Vendor Management</h2>
+            <p class="section-subtitle">Create and manage vendors for EV charger maintenance.</p>
+        </div>
+        <button id="addVendorBtn" class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+            Add New Vendor
+        </button>
+    </div>
+
+    <!-- Vendors List Table -->
+    <div class="data-table-container">
+        <div class="data-table-header">
+            <h3 class="data-table-title">Registered Vendors</h3>
+        </div>
+        <div class="data-table-responsive">
+            <table class="data-table" id="vendorsTable">
+                <thead>
+                    <tr>
+                        <th>Vendor ID</th>
+                        <th>Vendor Name</th>
+                        <th>Contact Person</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Vendors data will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Add Vendor Modal -->
+    <div id="addVendorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Vendor</h2>
+                <button class="modal-close" id="closeVendorModal">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="addVendorForm">
+                    <div class="form-group">
+                        <label for="vendorName">Vendor Name</label>
+                        <input type="text" id="vendorName" name="vendorName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPerson">Contact Person</label>
+                        <input type="text" id="contactPerson" name="contactPerson" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="vendorEmail">Email</label>
+                            <input type="email" id="vendorEmail" name="vendorEmail" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="vendorPhone">Phone</label>
+                            <input type="tel" id="vendorPhone" name="vendorPhone" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="vendorAddress">Address</label>
+                        <textarea id="vendorAddress" name="vendorAddress" rows="2" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="vendorUsername">Username</label>
+                            <input type="text" id="vendorUsername" name="vendorUsername" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="vendorPassword">Password</label>
+                            <input type="password" id="vendorPassword" name="vendorPassword" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="vendorStatus">Status</label>
+                        <select id="vendorStatus" name="vendorStatus" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="cancelVendorBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Vendor</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+                
+                <!-- Division Management Section -->
+<div id="divisionManagementSection" class="dashboard-section hidden">
+    <div class="section-header-flex">
+        <div>
+            <h2 class="section-title">Division Management</h2>
+            <p class="section-subtitle">Create and manage divisional users and their assigned areas.</p>
+        </div>
+        <button id="addDivisionBtn" class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+            Add Division User
+        </button>
+    </div>
+
+    <!-- Divisions List Table -->
+    <div class="data-table-container">
+        <div class="data-table-header">
+            <h3 class="data-table-title">Registered Divisions</h3>
+        </div>
+        <div class="data-table-responsive">
+            <table class="data-table" id="divisionsTable">
+                <thead>
+                    <tr>
+                        <th>Division ID</th>
+                        <th>Division Name</th>
+                        <th>Manager</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Total Chargers</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Division data will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Add Division Modal -->
+    <div id="addDivisionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add Division User</h2>
+                <button class="modal-close" id="closeDivisionModal">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="addDivisionForm">
+                    <div class="form-group">
+                        <label for="divisionName">Division Name</label>
+                        <input type="text" id="divisionName" name="divisionName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="managerName">Manager Name</label>
+                        <input type="text" id="managerName" name="managerName" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="divisionEmail">Email</label>
+                            <input type="email" id="divisionEmail" name="divisionEmail" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="divisionPhone">Phone</label>
+                            <input type="tel" id="divisionPhone" name="divisionPhone" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="divisionAddress">Address</label>
+                        <textarea id="divisionAddress" name="divisionAddress" rows="2" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="divisionUsername">Username</label>
+                            <input type="text" id="divisionUsername" name="divisionUsername" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="divisionPassword">Password</label>
+                            <input type="password" id="divisionPassword" name="divisionPassword" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="divisionStatus">Status</label>
+                        <select id="divisionStatus" name="divisionStatus" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="cancelDivisionBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Division</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+                
+               <!-- Charger Management Section -->
+<div id="chargerManagementSection" class="dashboard-section hidden">
+    <div class="section-header-flex">
+        <div>
+            <h2 class="section-title">Charger Management</h2>
+            <p class="section-subtitle">Commission and manage EV chargers across all divisions.</p>
+        </div>
+        <button id="addChargerBtn" class="btn btn-primary">
+            <i class="fas fa-plus"></i>
+            Add New Charger
+        </button>
+    </div>
+
+    <!-- Chargers List Table -->
+    <div class="data-table-container">
+        <div class="data-table-header">
+            <h3 class="data-table-title">Installed Chargers</h3>
+        </div>
+        <div class="filter-container">
+            <div class="filter-group">
+                <label for="chargerStatusFilter">Status:</label>
+                <select id="chargerStatusFilter">
+                    <option value="all">All</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="maintenance">Under Maintenance</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="chargerDivisionFilter">Division:</label>
+                <select id="chargerDivisionFilter">
+                    <option value="all">All</option>
+                    <!-- Division options will be loaded dynamically -->
+                </select>
+            </div>
+            <button id="applyChargerFilters" class="btn btn-sm btn-secondary">Apply Filters</button>
+            <button id="resetChargerFilters" class="btn btn-sm btn-outline">Reset</button>
+        </div>
+        <div class="data-table-responsive">
+            <table class="data-table" id="chargersTable">
+                <thead>
+                    <tr>
+                        <th>Charge Point ID</th>
+                        <th>Serial Number</th>
+                        <th>Location Name</th>
+                        <th>Make</th>
+                        <th>Division</th>
+                        <th>Status</th>
+                        <th>Commission Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Charger data will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Add Charger Modal -->
+    <div id="addChargerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Charger</h2>
+                <button class="modal-close" id="closeChargerModal">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="addChargerForm">
+                    <div class="form-group">
+                        <label for="chargerCPID">Charge Point ID</label>
+                        <input type="text" id="chargerCPID" name="chargerCPID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="chargerSerialNumber">Serial Number</label>
+                        <input type="text" id="chargerSerialNumber" name="chargerSerialNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="chargerLocation">Location Name</label>
+                        <input type="text" id="chargerLocation" name="chargerLocation" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="chargerMake">Make</label>
+                            <input type="text" id="chargerMake" name="chargerMake" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="chargerModel">Model</label>
+                            <input type="text" id="chargerModel" name="chargerModel" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="chargerDivision">Division</label>
+                        <select id="chargerDivision" name="chargerDivision" required>
+                            <option value="">Select Division</option>
+                            <!-- Division options will be loaded dynamically -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="chargerStatus">Status</label>
+                        <select id="chargerStatus" name="chargerStatus" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="maintenance">Under Maintenance</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="cancelChargerBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Charger</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Complaint Detail Modal (will be created dynamically) -->
+    
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+/* Import common styles */
+@import url('login.css');
+
+/* Consumer page styles */
+.consumer-nav {
+    background-color: white;
+    box-shadow: var(--shadow-sm);
+    padding: 0.75rem 0;
+}
+
+.nav-link {
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+.consumer-hero {
+    background: var(--gradient);
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.consumer-hero h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.consumer-hero p {
+    font-size: 1.125rem;
+    max-width: 36rem;
+    margin: 0 auto;
+}
+
+.complaint-container {
+    max-width: 800px;
+    margin: 2rem auto 4rem;
+}
+
+/* Two-column layout */
+.complaint-layout {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem 0 4rem;
+}
+
+.complaint-form-column {
+    flex: 3;
+}
+
+.complaint-help-column {
+    flex: 2;
+}
+
+/* Help Card Styles */
+.help-card {
+    position: sticky;
+    top: 2rem;
+}
+
+.help-header {
+    padding: 1.25rem;
+    background-color: var(--primary-light);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.help-header h2 {
+    font-size: 1.25rem;
+    color: var(--primary-dark);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.help-content {
+    padding: 1.5rem;
+}
+
+/* Step Styles */
+.help-step {
+    display: flex;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.help-step:not(:last-child):after {
+    content: '';
+    position: absolute;
+    left: 1.25rem;
+    top: 3rem;
+    bottom: -1rem;
+    width: 2px;
+    background-color: var(--gray-200);
+}
+
+.step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-right: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h3 {
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--gray-800);
+}
+
+.step-content p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.step-options {
+    display: flex;
+    align-items: center;
+    margin-top: 0.75rem;
+}
+
+.step-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background-color: var(--gray-100);
+    border-radius: var(--radius-md);
+    flex: 1;
+}
+
+.step-option i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.step-option span {
+    font-size: 0.85rem;
+    color: var(--gray-700);
+    font-weight: 500;
+}
+
+.step-divider {
+    margin: 0 0.75rem;
+    font-weight: bold;
+    color: var(--gray-500);
+}
+
+/* Complaint Tabs */
+.complaint-tabs {
+    display: flex;
+    background-color: var(--gray-100);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.complaint-tab {
+    flex: 1;
+    padding: 1rem;
+    text-align: center;
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+.complaint-tab.active {
+    color: var(--primary-color);
+    background-color: white;
+}
+
+.complaint-tab.active:after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+.complaint-tab:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Complaint Section */
+.complaint-content {
+    padding: 2rem;
+}
+
+.complaint-section {
+    animation: fadeIn 0.3s ease;
+}
+
+.complaint-section h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--gray-800);
+}
+
+/* Charger Info Display */
+.charger-info-display {
+    background-color: var(--green-light);
+    border-radius: var(--radius-md);
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.charger-info-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.charger-title {
+    font-weight: 600;
+    color: var(--gray-700);
+}
+
+.info-value {
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+/* QR Scanner Styles */
+.qr-scanner-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: var(--gray-100);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.qr-scanner-viewport {
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* Square aspect ratio */
+    background-color: black;
+}
+
+#qrVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.qr-scanner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.qr-scanner-frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+    border: 3px solid var(--primary-color);
+    border-radius: 10px;
+    box-shadow: 0 0 0 5000px rgba(0, 0, 0, 0.4);
+}
+
+.qr-scanner-line {
+    position: absolute;
+    top: 0;
+    left: 15%;
+    width: 70%;
+    height: 3px;
+    background-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+    animation: scanLine 2s linear infinite;
+}
+
+.qr-status {
+    padding: 1rem;
+    background-color: white;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--gray-700);
+}
+
+.qr-controls {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
+@keyframes scanLine {
+    0% {
+        top: 15%;
+    }
+    50% {
+        top: 85%;
+    }
+    100% {
+        top: 15%;
+    }
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 20;
+    overflow-y: auto;
+    padding: 2rem 1rem;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 32rem;
+    margin: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--gray-500);
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--gray-200);
+}
+
+/* Confirmation message */
+.confirmation-message {
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+.confirmation-icon {
+    font-size: 3rem;
+    color: var(--green);
+    margin-bottom: 1rem;
+}
+
+.tracking-info {
+    background-color: var(--gray-100);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .complaint-layout {
+        flex-direction: column;
+    }
+    
+    .complaint-form-column,
+    .complaint-help-column {
+        width: 100%;
+    }
+    
+    .help-card {
+        position: static;
+    }
+}
+
+@media (max-width: 576px) {
+    .complaint-content {
+        padding: 1rem;
+    }
+    
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .form-group.half {
+        max-width: 100%;
+    }
+}
